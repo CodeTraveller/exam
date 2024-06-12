@@ -37,6 +37,7 @@ Route::name('admin.')->group(function () {
         })
             ->name('dashboard');
 
+        Route::post('questionnaires/send-email/{id}', [QuestionnaireController::class, 'sendEmail'])->name('questionnaires.send-email');
         Route::resource('questionnaires', QuestionnaireController::class)->only(['index', 'create', 'store']);
     });
 });

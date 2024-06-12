@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/Admin/AuthenticatedLayout.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { defineProps } from 'vue';  // Correct way to use defineProps
 
 const props = defineProps({
@@ -8,6 +9,8 @@ const props = defineProps({
         type: Object,
     },
 });
+
+const form = useForm({});
 
 function changePage(url) {
     if (url) {
@@ -36,6 +39,8 @@ function changePage(url) {
                     </Link>
 
                     <div class="overflow-x-auto bg-white rounded-lg shadow-md p-4">
+                        <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">
+                            Email is being sent in background.</p>
                         <table class="min-w-full">
                             <thead>
                                 <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -53,8 +58,16 @@ function changePage(url) {
                                     <td class="py-3 px-6 text-left">{{ questionnaire.id }}</td>
                                     <td class="py-3 px-6 text-left">{{ questionnaire.title }}</td>
                                     <td class="py-3 px-6 text-left">
-                                        <button class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">Email
-                                            Students</button>
+                                        <form
+                                            @submit.prevent="form.post(route('admin.questionnaires.send-email', questionnaire.id))"
+                                            class="mt-6 space-y-6">
+
+                                            <div class="flex items-center gap-4">
+                                                <PrimaryButton :disabled="form.processing">Email
+                                                    Students</PrimaryButton>
+                                            </div>
+                                        </form>
+
                                     </td>
                                 </tr>
                             </tbody>

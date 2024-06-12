@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\QuestionnaireCreateRequest;
+use App\Jobs\GenerateUniqueQuestionnaireUrls;
 use App\Models\Questionnaire;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -92,5 +93,12 @@ class QuestionnaireController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function sendEmail($id)
+    {
+        GenerateUniqueQuestionnaireUrls::dispatch($id);
+
+        return Redirect::route('admin.questionnaires.index');
     }
 }

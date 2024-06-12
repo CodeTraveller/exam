@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class QuestionnaireStudentUrl extends Model
 {
     use HasFactory;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,11 +21,13 @@ class QuestionnaireStudentUrl extends Model
         'url',
     ];
 
-    public function questionnaire(){
+    public function questionnaire(): BelongsTo
+    {
         return $this->belongsTo(Questionnaire::class, 'questionnaire_id');
     }
 
-    public function student(){
+    public function student(): BelongsTo
+    {
         return $this->belongsTo(Student::class, 'student_id');
     }
 }
