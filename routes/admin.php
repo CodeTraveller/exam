@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\QuestionnaireController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,5 +36,7 @@ Route::name('admin.')->group(function () {
             return Inertia::render('Admin/Dashboard');
         })
             ->name('dashboard');
+
+        Route::resource('questionnaires', QuestionnaireController::class)->only(['index', 'create', 'store']);
     });
 });

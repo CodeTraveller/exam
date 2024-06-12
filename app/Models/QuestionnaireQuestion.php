@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class QuestionnaireQuestion extends Model
+class QuestionnaireQuestion extends Pivot
 {
     use HasFactory, SoftDeletes;
 
@@ -20,11 +21,13 @@ class QuestionnaireQuestion extends Model
         'question_id',
     ];
 
-    public function questionnaire(){
+    public function questionnaire()
+    {
         return $this->belongsTo(Questionnaire::class, 'questionnaire_id');
     }
 
-    public function question(){
+    public function question()
+    {
         return $this->belongsTo(Question::class, 'question_id');
     }
 }
