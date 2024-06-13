@@ -11,6 +11,8 @@ class QuestionnaireQuestion extends Pivot
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'questionnaire_questions';
+
     /**
      * The attributes that are mass assignable.
      *

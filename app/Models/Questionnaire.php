@@ -22,6 +22,11 @@ class Questionnaire extends Model
         'expiration_date',
     ];
 
+    public function questionnaireQuestions(): HasMany
+    {
+        return $this->hasMany(QuestionnaireQuestion::class, 'questionnaire_id');
+    }
+
     public function questions(): BelongsToMany
     {
         return $this->belongsToMany(Question::class, 'questionnaire_questions')->using(QuestionnaireQuestion::class);
