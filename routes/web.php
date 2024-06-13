@@ -26,7 +26,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/questionnaires/{url}', [QuestionnaireController::class, 'show'])->name('questionnaires.show');
+Route::get('/questionnaires/{url}', [QuestionnaireController::class, 'show'])
+    ->middleware(['guest', 'guest:admin'])
+    ->name('questionnaires.show');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
